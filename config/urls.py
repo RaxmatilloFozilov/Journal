@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
+
+# MEDIA & STATIC
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 # static
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,8 +39,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/v1/tech', include('app_tech.urls')),
-    # path('api/v1/accounts/', include('users.urls')),
+    path('api/', include('app_journal.urls')),
+    path('api/accounts/', include('users.urls')),
+    # path('api/', include('app_journal')),
 
     # JWT
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -48,3 +55,4 @@ urlpatterns = [
 if settings.DEBUG is False:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # My_app
     'users',
+    'app_journal',
 
 ]
 
@@ -149,9 +150,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "staticfiles",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "staticfiles",
+# ]
 
 
 # Default primary key field type
