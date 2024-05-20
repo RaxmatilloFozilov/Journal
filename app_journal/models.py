@@ -2,16 +2,20 @@ from django.db import models
 
 
 class Requirements(models.Model):
-    title = models.CharField(max_length=250)
-    description = models.TextField()
+    requirements_parts_uz = models.CharField(max_length=100)
+    requirements_parts_en = models.CharField(max_length=100)
+    requirements_title_uz = models.TextField()
+    requirements_title_en = models.TextField()
+    requirements_description_uz = models.TextField()
+    requirements_description_en = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self.requirements_parts_uz
 
     class Meta:
-        ordering = ('title',)
-        verbose_name_plural = 'Requirements'
         verbose_name = 'Requirement'
+        verbose_name_plural = 'Requirements'
+        db_table = 'Requirements'
 
 
 class FAQ(models.Model):

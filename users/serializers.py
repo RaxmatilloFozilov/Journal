@@ -1,4 +1,3 @@
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
@@ -16,13 +15,16 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        fields = ('username', 'password')
+        fields = '__all__'
+        # fields = ( 'password')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'first_name', 'last_name', 'birth_date', 'phone', 'avatar')
+        fields = ('id', 'first_name', 'last_name', 'birth_date',  'avatar')
         # extra_kwargs = {
         #     'id': {'read_only': True},
         # }
+
+

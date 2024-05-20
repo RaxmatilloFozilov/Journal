@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
+from rest_framework.viewsets import ModelViewSet
 
 
 from app_journal.models import (
@@ -13,30 +14,22 @@ from app_journal.models import (
     FAQ, Contacts
 )
 from app_journal.serializers import (
-    RequirementsSerializer,
-    FAQSerializer, ContactsSerializer
+    RequirementsGetSerializer,
+    FAQSerializer,
+    ContactsSerializer
 )
 
 
-class RequirementsViewSet(viewsets.ModelViewSet):
+class RequirementsViewSet(ModelViewSet):
     queryset = Requirements.objects.all()
-    serializer_class = RequirementsSerializer
-    permission_classes = [IsAuthenticated]
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['title']
-    search_fields = ['title', 'description']
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return RequirementsSerializer
-        return RequirementsSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(autor=self.request.user)
-        return serializer.save
+        if self.request.method == 'GET':
+            return RequirementsGetSerializer
+        return RequirementsGetSerializer
 
 
-class FAQViewSet(viewsets.ModelViewSet):
+class FAQViewSet(ModelViewSet):
     queryset = FAQ.objects.all()
     serializer_class = FAQSerializer
     permission_classes = [IsAuthenticated]
@@ -54,7 +47,7 @@ class FAQViewSet(viewsets.ModelViewSet):
         return serializer.save
 
 
-class ContactsViewSet(viewsets.ModelViewSet):
+class ContactsViewSet(ModelViewSet):
     queryset = Contacts.objects.all()
     serializer_class = ContactsSerializer
     permission_classes = [IsAdminUser]

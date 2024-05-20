@@ -5,13 +5,22 @@ from django.db import models
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    username = models.EmailField(unique=True)
+    # username = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
     birth_date = models.DateField(null=True, blank=True)
+    email = models.EmailField()
+    organization = models.CharField(max_length=250)
+    login = models.CharField(max_length=250)
+    password = models.CharField(max_length=250)
+    password_confirmation = models.CharField(max_length=250)
+    scientific_degree = models.CharField(max_length=250)
+    anather_information = models.CharField(max_length=250)
     phone = models.CharField(max_length=13, null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.email
 
     class Meta:
         db_table = 'users'
