@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
@@ -33,11 +34,17 @@ from app_journal.serializers import (
 
 class RequirementsViewSet(ModelViewSet):
     queryset = Requirements.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return RequirementsGetSerializer
         return RequirementsGetSerializer
+
+    def perform_create(self, serializer):
+        print(self.request.user)
+        serializer.save(user=self.request.user)
+        return serializer.save()
 
 
 class FAQViewSet(ModelViewSet):
@@ -142,3 +149,16 @@ class PublicationDetailViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return PublicationSerializer
         return PublicationSerializer
+
+
+@api_view(['GET'])
+def paper_with_parts(requiest, paper_id):
+    paper_doc = PaperSerializer(Paper.objects.get(pk=paper_id))
+    paper_parts = PaperSerializer(Paper.objects.filter(paper_document=paper_id), many=True)
+    return Response(
+         {
+        'papers': paper_doc.data,
+        'paper_parts': paper_parts.data,
+    },
+    status=status.HTTP_200_OK
+)

@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser, AbstractUser
 
 
 class Requirements(models.Model):
@@ -8,6 +9,7 @@ class Requirements(models.Model):
     requirements_title_en = models.TextField()
     requirements_description_uz = models.TextField()
     requirements_description_en = models.TextField()
+    # connection = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.requirements_parts_uz
@@ -53,7 +55,7 @@ class PaperMain(models.Model):
 
 
 class Paper(models.Model):
-    user = models.ForeignKey(Contacts, on_delete=models.CASCADE)  # Link to the user
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link to the user
     field_name = models.CharField(max_length=150)
     title = models.CharField(max_length=500)
     author = models.CharField(max_length=120)

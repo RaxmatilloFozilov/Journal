@@ -16,6 +16,9 @@ class RequirementsGetSerializer(ModelSerializer):
     class Meta:
         model = Requirements
         fields = ('id', 'requirements_part', 'requirements_title', 'requirements_description')
+        extra_kwargs = {
+            'author': {'write_only': True}
+        }
 
     def get_requirements_title(self, obj):
         lang = self.context['request'].GET.get('lang', 'uz')

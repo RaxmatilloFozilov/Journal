@@ -9,7 +9,8 @@ from app_journal.views import (
     PaperMainDetailViewSet,
     # PaperDetailViewSet,
     PublicationDetailViewSet,
-    PaperListCreateView, PaperDetailView
+    PaperListCreateView, PaperDetailView,
+    paper_with_parts,
 )
 
 router = routers.DefaultRouter()
@@ -25,5 +26,6 @@ urlpatterns = router.urls
 urlpatterns += [
     path('papers/', PaperListCreateView.as_view(), name='paper-list-create'),
     path('papers/<int:pk>/', PaperDetailView.as_view(), name='paper-detail'),
+    path('paper_parts/<int:snk_id>/', paper_with_parts, name='paper-pats')
 ]
 
