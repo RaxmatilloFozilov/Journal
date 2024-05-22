@@ -11,9 +11,9 @@ class CustomUser(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     email = models.EmailField()
     organization = models.CharField(max_length=250)
-    login = models.CharField(max_length=250)
+    username = models.CharField(max_length=250, unique=True)
     password = models.CharField(max_length=250)
-    password_confirmation = models.CharField(max_length=250)
+    # password_confirmation = models.CharField(max_length=250)
     scientific_degree = models.CharField(max_length=250)
     anather_information = models.CharField(max_length=250)
     phone = models.CharField(max_length=13, null=True, blank=True)
@@ -40,3 +40,6 @@ class PasswordResets(models.Model):
         index_together = (('user', 'created_at'),)
         verbose_name = 'Password Reset'
         verbose_name_plural = 'Password Resets'
+
+
+
