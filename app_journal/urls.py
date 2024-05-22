@@ -6,7 +6,7 @@ from app_journal.views import (
     FAQViewSet,
     ContactsViewSet,
     JournalMainDetailViewSet,
-    # PaperMainDetailViewSet,
+    PaperMainDetailViewSet,
     # PaperDetailViewSet,
     PublicationDetailViewSet,
     PaperListCreateView, PaperDetailView
@@ -17,7 +17,7 @@ router.register(r'requirements', RequirementsViewSet)
 router.register(r'faq', FAQViewSet)
 router.register(r'contacts', ContactsViewSet)
 router.register(r'journal', JournalMainDetailViewSet)
-# router.register(r'papermain', PaperMainDetailViewSet)
+router.register(r'papermain', PaperMainDetailViewSet)
 # router.register(r'paper', PaperDetailViewSet)
 router.register(r'publication', PublicationDetailViewSet)
 

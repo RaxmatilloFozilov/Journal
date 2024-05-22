@@ -54,11 +54,11 @@ class JournalMainSerializer(serializers.ModelSerializer):
         fields = ['id', 'edition_logo', 'description']
 
 
-# class PaperMainSerializer(ModelSerializer):
-#     class Meta:
-#         model = PaperMain
-#         fields = '__all__'
-#
+class PaperMainSerializer(ModelSerializer):
+    class Meta:
+        model = PaperMain
+        fields = '__all__'
+
 
 class PaperSerializer(serializers.ModelSerializer):
     class Meta:

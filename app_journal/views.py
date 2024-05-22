@@ -16,7 +16,7 @@ from app_journal.models import (
     Requirements,
     FAQ, Contacts,
     JournalMain,
-    # PaperMain,
+    PaperMain,
     Paper, Publication
 )
 from app_journal.serializers import (
@@ -24,7 +24,7 @@ from app_journal.serializers import (
     FAQSerializer,
     ContactsSerializer,
     JournalMainSerializer,
-    # PaperMainSerializer,
+    PaperMainSerializer,
     PaperSerializer,
     PublicationSerializer,
 )
@@ -88,22 +88,23 @@ class JournalMainDetailViewSet(ModelViewSet):
         return JournalMainSerializer
 
 
-# class PaperMainDetailViewSet(ModelViewSet):
-#     queryset = PaperMain.objects.all()
-#     serializer_class = PaperMainSerializer
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_fields = ['title', 'description']
-#     search_fields = ['title', 'description']
-#
-#     def get_serializer_class(self):
-#         if self.request.method == 'POST':
-#             return PaperMainSerializer
-#         return PaperMainSerializer
+class PaperMainDetailViewSet(ModelViewSet):
+    queryset = PaperMain.objects.all()
+    serializer_class = PaperMainSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['title', 'description']
+    search_fields = ['title', 'description']
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return PaperMainSerializer
+        return PaperMainSerializer
 
 
 class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.user == request.user
+
 
 class PaperListCreateView(generics.ListCreateAPIView):
     queryset = Paper.objects.all()
@@ -119,6 +120,7 @@ class PaperListCreateView(generics.ListCreateAPIView):
         if not self.request.user.is_authenticated:
             raise PermissionDenied("Maqola yaratish uchun login qilishingiz kerak.")
         serializer.save(user=self.request.user)
+
 
 class PaperDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Paper.objects.all()

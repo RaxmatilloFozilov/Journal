@@ -7,7 +7,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields = ('email', 'first_name', 'last_name', 'phone')
     list_filter = ('birth_date',)
     ordering = ('email',)
-# 'organization'
+
 
 class PasswordResetsAdmin(admin.ModelAdmin):
     list_display = ('user', 'reset_code', 'created_at', 'status')
