@@ -75,7 +75,7 @@ class PublicationSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class PublicationGetSerializer(ModelSerializer):
+class PublicationGetSerializer(serializers.ModelSerializer):
     publication_name = SerializerMethodField(method_name='get_publication_name', read_only=True)
     publication_description = SerializerMethodField(method_name='get_publication_description', read_only=True)
 
@@ -83,7 +83,7 @@ class PublicationGetSerializer(ModelSerializer):
         model = Publication
         fields = ('id', 'publication_name', 'journal_avatar', 'publication_description', 'categories_in_journal')
 
-    def get_publication_name(self,obj):
+    def get_publication_name(self, obj):
         try:
             lang = self.context['request'].query_params.get('lang', 'uz')
             if lang == 'en':

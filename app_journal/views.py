@@ -17,7 +17,7 @@ from app_journal.models import (
     FAQ, Contacts,
     JournalMain,
     PaperMain,
-    Paper, Publication
+    Paper, Publication,
 )
 from app_journal.serializers import (
     RequirementsGetSerializer,
@@ -27,6 +27,7 @@ from app_journal.serializers import (
     PaperMainSerializer,
     PaperSerializer,
     PublicationSerializer,
+    PublicationGetSerializer,
 )
 
 

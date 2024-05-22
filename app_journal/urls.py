@@ -18,7 +18,6 @@ router.register(r'faq', FAQViewSet)
 router.register(r'contacts', ContactsViewSet)
 router.register(r'journal', JournalMainDetailViewSet)
 router.register(r'papermain', PaperMainDetailViewSet)
-# router.register(r'paper', PaperDetailViewSet)
 router.register(r'publication', PublicationDetailViewSet)
 
 urlpatterns = router.urls
