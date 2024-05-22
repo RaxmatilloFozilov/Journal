@@ -63,7 +63,8 @@ class JournalMainSerializer(serializers.ModelSerializer):
 class PaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper
-        fields = ['title', 'description', 'keywords']
+        fields = ['id', 'field_name', 'title', 'author', 'year', 'number_views', 'description', 'references', 'keywords', 'file']
+        read_only_fields = ['user']
 
 
 class PublicationSerializer(ModelSerializer):

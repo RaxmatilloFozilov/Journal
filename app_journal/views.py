@@ -2,9 +2,11 @@ from django.http import HttpResponseForbidden
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic.detail import DetailView
@@ -82,7 +84,7 @@ class JournalMainDetailViewSet(ModelViewSet):
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
-            return JournalMain
+            return JournalMainSerializer
         return JournalMainSerializer
 
 
@@ -99,17 +101,34 @@ class JournalMainDetailViewSet(ModelViewSet):
 #         return PaperMainSerializer
 
 
-class PaperDetailViewSet(ModelViewSet):
+class IsOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.user == request.user
+
+class PaperListCreateView(generics.ListCreateAPIView):
     queryset = Paper.objects.all()
     serializer_class = PaperSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['title', 'author', 'keywords', 'references']
-    search_fields = ['title', 'author', 'keywords', 'references']
+    permission_classes = [permissions.IsAuthenticated]  # IsAuthenticated ruxsat sinfini ishlatamiz
 
     def get_queryset(self):
-        if self.request.method == 'POST':
-            return PaperMainSerializer
-        return PaperMainSerializer
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied("O'z maqolalaringizni ko'rish uchun login qilishingiz kerak.")
+        return self.queryset.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied("Maqola yaratish uchun login qilishingiz kerak.")
+        serializer.save(user=self.request.user)
+
+class PaperDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Paper.objects.all()
+    serializer_class = PaperSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            # raise PermissionDenied("O'z maqolalaringizni ko'rish uchun login qilishingiz kerak.")
+            return self.queryset.filter(user=self.request.user)
 
 
 class PublicationDetailViewSet(ModelViewSet):

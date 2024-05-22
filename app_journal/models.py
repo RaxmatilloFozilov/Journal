@@ -41,7 +41,7 @@ class Contacts(models.Model):
 
 
 class JournalMain(models.Model):
-    edition_logo = models.ImageField(upload_to='images_journal/', null=True)
+    edition_logo = models.ImageField(upload_to='images_journal/')
     description = models.TextField()
 
 
@@ -53,6 +53,7 @@ class PaperMain(models.Model):
 
 
 class Paper(models.Model):
+    user = models.ForeignKey(Contacts, on_delete=models.CASCADE)  # Link to the user
     field_name = models.CharField(max_length=150)
     title = models.CharField(max_length=500)
     author = models.CharField(max_length=120)

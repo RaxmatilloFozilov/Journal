@@ -7,8 +7,9 @@ from app_journal.views import (
     ContactsViewSet,
     JournalMainDetailViewSet,
     # PaperMainDetailViewSet,
-    PaperDetailViewSet,
+    # PaperDetailViewSet,
     PublicationDetailViewSet,
+    PaperListCreateView, PaperDetailView
 )
 
 router = routers.DefaultRouter()
@@ -17,8 +18,13 @@ router.register(r'faq', FAQViewSet)
 router.register(r'contacts', ContactsViewSet)
 router.register(r'journal', JournalMainDetailViewSet)
 # router.register(r'papermain', PaperMainDetailViewSet)
-router.register(r'paper', PaperDetailViewSet)
+# router.register(r'paper', PaperDetailViewSet)
 router.register(r'publication', PublicationDetailViewSet)
 
 urlpatterns = router.urls
+
+urlpatterns += [
+    path('papers/', PaperListCreateView.as_view(), name='paper-list-create'),
+    path('papers/<int:pk>/', PaperDetailView.as_view(), name='paper-detail'),
+]
 
