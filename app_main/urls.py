@@ -6,19 +6,17 @@ from app_main.views import (
     CategoryViewSet,
     CategoryListCreateView,
     CategoryDetailView,
-
 )
 
 router = routers.DefaultRouter()
 router.register(r'requirements', RequirementsViewSet)
-router.register(r'categories', CategoryViewSet)
+router.register(r'category', CategoryViewSet)
 
 urlpatterns = router.urls
 
-
 urlpatterns += [
-    path('papers/<int:pk>/', CategoryListCreateView.as_view(), name='category-list'),
-    path('papers/<int:pk>', CategoryDetailView.as_view(), name='category-detail')
+    path('category/<int:pk>/', CategoryListCreateView.as_view(), name='category-list'),
+    path('category/<int:pk>', CategoryDetailView.as_view(), name='category-detail')
 ]
 
 

@@ -2,7 +2,6 @@ from django.db import models
 from users.models import CustomUser, AbstractUser
 from app_journal.models import Paper
 from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import AbstractUser
 
 
 class AbstractBaseModel(models.Model):
@@ -23,7 +22,6 @@ class Requirements(AbstractBaseModel):
     requirements_title_en = models.TextField()
     requirements_description_uz = models.TextField()
     requirements_description_en = models.TextField()
-    # connection = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.requirements_parts_uz
@@ -40,7 +38,7 @@ class Category(AbstractBaseModel):
     name = models.CharField(max_length=250)
 
     def __str__(self):
-        return self
+        return self.name
 
     class Meta:
         verbose_name = 'Category'

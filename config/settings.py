@@ -40,31 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+
     # My_app
     'users',
     'app_journal',
     'app_main',
-
 ]
 
-# THIRD_APPS = [
-#     'drf_yasg',
-#     'rest_framework',
-#     'rest_framework_simplejwt',
-#     # 'ckeditor',
-# ]
-#
-# MY_APPS = [
-#     'users',
-#
-# ]
-#
-#
-# INSTALLED_APPS = DJANGO_DEFAULT_APPS + THIRD_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

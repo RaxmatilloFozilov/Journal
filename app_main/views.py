@@ -12,16 +12,14 @@ from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic.detail import DetailView
 
-
 from app_main.models import (
     Requirements,
     Category,
-
 )
+
 from app_main.serializers import (
     RequirementsGetSerializer,
     CategorySerializer
-
 )
 
 

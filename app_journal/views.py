@@ -12,13 +12,13 @@ from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic.detail import DetailView
 
-
 from app_journal.models import (
     FAQ, Contacts,
     JournalMain,
     PaperMain,
     Paper, Publication,
 )
+
 from app_journal.serializers import (
     FAQSerializer,
     ContactsSerializer,
@@ -33,7 +33,6 @@ from app_journal.serializers import (
 class FAQViewSet(ModelViewSet):
     queryset = FAQ.objects.all()
     serializer_class = FAQSerializer
-    # permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['question']
     search_fields = ['question', 'answer']
