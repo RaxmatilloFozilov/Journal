@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # My_app
     'users',
     'app_journal',
+    'app_main',
 
 ]
 

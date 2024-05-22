@@ -14,14 +14,12 @@ from django.views.generic.detail import DetailView
 
 
 from app_journal.models import (
-    Requirements,
     FAQ, Contacts,
     JournalMain,
     PaperMain,
     Paper, Publication,
 )
 from app_journal.serializers import (
-    RequirementsGetSerializer,
     FAQSerializer,
     ContactsSerializer,
     JournalMainSerializer,
@@ -30,21 +28,6 @@ from app_journal.serializers import (
     PublicationSerializer,
     PublicationGetSerializer,
 )
-
-
-class RequirementsViewSet(ModelViewSet):
-    queryset = Requirements.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return RequirementsGetSerializer
-        return RequirementsGetSerializer
-
-    def perform_create(self, serializer):
-        print(self.request.user)
-        serializer.save(user=self.request.user)
-        return serializer.save()
 
 
 class FAQViewSet(ModelViewSet):
@@ -59,10 +42,6 @@ class FAQViewSet(ModelViewSet):
         if self.request.method == 'GET':
             return FAQSerializer
         return FAQSerializer
-
-    # def perform_create(self, serializer):
-        # serializer.save(autor=self.request.user)
-        # return serializer.save
 
 
 class ContactsViewSet(ModelViewSet):
@@ -137,18 +116,12 @@ class PaperDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            # raise PermissionDenied("O'z maqolalaringizni ko'rish uchun login qilishingiz kerak.")
             return self.queryset.filter(user=self.request.user)
 
 
 class PublicationDetailViewSet(ModelViewSet):
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
-
-    def get_queryset(self):
-        if self.request.method == 'POST':
-            return PublicationSerializer
-        return PublicationSerializer
 
 
 @api_view(['GET'])
@@ -157,8 +130,8 @@ def paper_with_parts(requiest, paper_id):
     paper_parts = PaperSerializer(Paper.objects.filter(paper_document=paper_id), many=True)
     return Response(
          {
-        'papers': paper_doc.data,
-        'paper_parts': paper_parts.data,
-    },
-    status=status.HTTP_200_OK
+                'papers': paper_doc.data,
+                'paper_parts': paper_parts.data,
+            },
+            status=status.HTTP_200_OK
 )

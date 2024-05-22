@@ -1,23 +1,56 @@
 from django.db import models
 from users.models import CustomUser, AbstractUser
+from django.contrib.auth import get_user_model
+# from app_main.models import AbstractBaseModel
 
 
-class Requirements(models.Model):
-    requirements_parts_uz = models.CharField(max_length=100)
-    requirements_parts_en = models.CharField(max_length=100)
-    requirements_title_uz = models.TextField()
-    requirements_title_en = models.TextField()
-    requirements_description_uz = models.TextField()
-    requirements_description_en = models.TextField()
-    # connection = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+# class AbstractBaseModel(models.Model):
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+#
+#     class Meta:
+#         abstract = True
+#         db_table = 'abstract_model'
+
+
+class Paper(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link to the user
+    field_name = models.CharField(max_length=150)
+    title = models.CharField(max_length=500)
+    author = models.CharField(max_length=120)
+    year = models.IntegerField()
+    number_views = models.IntegerField()
+    description = models.TextField()
+    references = models.TextField()
+    keywords = models.TextField()
+    file = models.FileField(upload_to='media/files_journal/', null=True)
 
     def __str__(self):
-        return self.requirements_parts_uz
+        return f"{self.field_name} | {self.title} "
 
     class Meta:
-        verbose_name = 'Requirement'
-        verbose_name_plural = 'Requirements'
-        db_table = 'requirements'
+        verbose_name_plural = 'Papers'
+        db_table = 'paper'
+
+
+# class Requirements(AbstractBaseModel):
+#     # connection = models.ForeignKey(Paper, on_delete=models.CASCADE)
+#     requirements_parts_uz = models.CharField(max_length=100)
+#     requirements_parts_en = models.CharField(max_length=100)
+#     requirements_title_uz = models.TextField()
+#     requirements_title_en = models.TextField()
+#     requirements_description_uz = models.TextField()
+#     requirements_description_en = models.TextField()
+#     # connection = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return self.requirements_parts_uz
+#
+#     class Meta:
+#         verbose_name = 'Requirement'
+#         verbose_name_plural = 'Requirements'
+#         db_table = 'requirements'
 
 
 class FAQ(models.Model):
@@ -54,26 +87,7 @@ class PaperMain(models.Model):
     contact = models.ForeignKey(JournalMain, on_delete=models.CASCADE)
 
 
-class Paper(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link to the user
-    field_name = models.CharField(max_length=150)
-    title = models.CharField(max_length=500)
-    author = models.CharField(max_length=120)
-    year = models.IntegerField()
-    number_views = models.IntegerField()
-    description = models.TextField()
-    references = models.TextField()
-    keywords = models.TextField()
-    file = models.FileField(upload_to='media/files_journal/', null=True)
-
-    def __str__(self):
-        return f"{self.field_name} | {self.title} "
-
-    class Meta:
-        verbose_name_plural = 'Papers'
-        db_table = 'paper'
-
-
+#
 class Publication(models.Model):
     journal_name_uz = models.CharField(max_length=250)
     journal_name_en = models.CharField(max_length=250)
@@ -93,17 +107,12 @@ class Publication(models.Model):
 
 
 
-
-
-# class Main(models.Model):
-#     title = models.CharField(max_length=250)
-#     etion_logo = models.ImageField(upload_to='images_journal/')
-#     description = models.TextField()
-#     number_views = models.IntegerField(default=0)
-#     data_time = models.DateTimeField(auto_now_add=True)
+# class Abstractbasemodel(models.Model):
+# class Category(models.Model):
+#     name = models.CharField(max_length=250)
 #
-#     def __str__(self):
-#         return self.title
+
+
 
 
 

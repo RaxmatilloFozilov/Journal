@@ -2,19 +2,17 @@ from django.urls import path
 from rest_framework import routers
 from . import views
 from app_journal.views import (
-    RequirementsViewSet,
+    # RequirementsViewSet,
     FAQViewSet,
     ContactsViewSet,
     JournalMainDetailViewSet,
     PaperMainDetailViewSet,
-    # PaperDetailViewSet,
     PublicationDetailViewSet,
     PaperListCreateView, PaperDetailView,
     paper_with_parts,
 )
 
 router = routers.DefaultRouter()
-router.register(r'requirements', RequirementsViewSet)
 router.register(r'faq', FAQViewSet)
 router.register(r'contacts', ContactsViewSet)
 router.register(r'journal', JournalMainDetailViewSet)

@@ -20,4 +20,5 @@ admin.site.register(Contacts)
 admin.site.register(JournalMain)
 admin.site.register(Publication)
 admin.site.register(PaperMain)
+# admin.site.register(Requirements)
 # Register your models here.

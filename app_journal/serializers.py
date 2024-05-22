@@ -2,41 +2,10 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from app_journal.models import (
-    Requirements, FAQ, Contacts, JournalMain,
+    FAQ, Contacts, JournalMain,
     PaperMain, Paper,
     Publication,
 )
-
-
-class RequirementsGetSerializer(ModelSerializer):
-    requirements_title = SerializerMethodField()
-    requirements_part = SerializerMethodField()
-    requirements_description = SerializerMethodField()
-
-    class Meta:
-        model = Requirements
-        fields = ('id', 'requirements_part', 'requirements_title', 'requirements_description')
-        extra_kwargs = {
-            'author': {'write_only': True}
-        }
-
-    def get_requirements_title(self, obj):
-        lang = self.context['request'].GET.get('lang', 'uz')
-        if lang == 'en':
-            return obj.requirements_title_en
-        return obj.requirements_title_uz
-
-    def get_requirements_part(self, obj):
-        lang = self.context['request'].GET.get('lang', 'uz')
-        if lang == 'en':
-            return obj.requirements_parts_en
-        return obj.requirements_parts_uz
-
-    def get_requirements_description(self, obj):
-        lang = self.context['request'].GET.get('lang', 'uz')
-        if lang == 'en':
-            return obj.requirements_description_en
-        return obj.requirements_description_uz
 
 
 class FAQSerializer(serializers.ModelSerializer):
@@ -71,7 +40,6 @@ class PaperSerializer(serializers.ModelSerializer):
 
 
 class PublicationSerializer(ModelSerializer):
-    publication_name = SerializerMethodField(method_name='get_publication_name', read_only=True)
 
     class Meta:
         model = Publication
