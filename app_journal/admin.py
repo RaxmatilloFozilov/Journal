@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app_journal.models import Paper, Publication, JournalMain, PaperMain, Contacts
+from app_journal.models import Paper, Publication, JournalMain, PaperMain, Contacts, FAQ
 
 
 class PaperAdmin(admin.ModelAdmin):
@@ -20,5 +20,5 @@ admin.site.register(Contacts)
 admin.site.register(JournalMain)
 admin.site.register(Publication)
 admin.site.register(PaperMain)
-# admin.site.register(Requirements)
+admin.site.register(FAQ)
 # Register your models here.
